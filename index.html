@@ -1,7 +1,19 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
 <script src="chart.js"></script>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div style="margin: 20px">
+	<input id="search"></input>
+	<button onclick="update()">Search</button>
+
+	<br/><br/>
+
+	<p class="alert alert-info" id="response" style="width: 400px">No data to show</p>
+</div>
+
+<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

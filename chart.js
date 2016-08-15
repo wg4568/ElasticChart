@@ -1,40 +1,47 @@
-var response_data = [
-  {
-    name: 'Datapoint 1',
-    y: 56.33,
-  },
-  {
-    name: 'Datapoint 2',
-    y: 24.03,
-  }
-]
+window.onerror = function(message, url, lineNumber) {
+  $('#response').html("An error occured, perhaps due to bad data");
+  $("#response").removeClass();
+  $("#response").addClass("alert alert-warning");
+  return true;
+};
 
-$(document).ready(function() {
-  $('#container').highcharts({
+function update() {
+  var search = $('#search').val();
+  $.ajax({
+    url:search,
+    success:function (data) {
+      $('#response').html("Success, data loaded");
+      $("#response").removeClass();
+      $("#response").addClass("alert alert-success");
+      updateChart(eval(data), search)
+    },
+    error:function (xhr, ajaxOptions, thrownError){
+    if(xhr.status==404) {
+        $("#response").removeClass();
+        $("#response").addClass("alert alert-danger");
+        $('#response').html("404 error, file not found")
+      }
+    }
+  })
+}
+
+function updateChart(data, title) {
+  $('#chart').highcharts({
     chart: {
       type: 'column'
     },
     title: {
-      text: 'Title Here'
-    },
-    subtitle: {
-      text: 'Subtitle here'
+      text: title
     },
     xAxis: {
       type: 'category'
-    },
-    yAxis: {
-      title: {
-        text: 'Some data'
-      }
-
     },
     legend: {enabled: false},
 
     series: [{
       name: 'Data',
       colorByPoint: true,
-      data: response_data,
+      data: data
     }],
   })
-})
+}
